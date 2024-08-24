@@ -1,18 +1,27 @@
 #!/bin/bash
-
-while true; do
-    # Display the menu with specified colors for each item
     echo -e "\033[34mHome\033[0m"       # Blue
     echo -e "\033[33mAbout\033[0m"      # Yellow
     echo -e "\033[32mProjects\033[0m"   # Green
     echo -e "\033[36mSkills\033[0m"     # Cyan
     echo -e "\033[35mContact\033[0m"    # Magenta
     echo -e "\033[33mExit\033[0m"       # Yellow
+while true; do
+    # Display the menu with specified colors for each item
+   
 
     read -p "Enter Your Choice: " choice
 
     case "$choice" in
         home)
+        echo -e "\033[36m"  # Cyan color for the ASCII art
+
+echo "     _       _   _     _     _     "
+echo "    | | ___ | |_| |__ (_)___| |__  "
+echo " _  | |/ _ \| __| '_ \| / __| '_ \ "
+echo "| |_| | (_) | |_| | | | \__ \ | | |"
+echo " \___/ \___/ \__|_| |_|_|___/_| |_|"
+
+echo -e "\033[0m"  # Reset color back to default
             echo -e "\033[36m"          # Cyan for heading
             echo -e "======================="
             echo -e "=       Home           ="
