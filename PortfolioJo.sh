@@ -1,27 +1,40 @@
 #!/bin/bash
+
+# Function to scrape GitHub repositories
+get_projects() {
+    echo -e "\033[33mScraping GitHub Repositories...\033[0m"
+    repos=$(curl -s https://api.github.com/users/joe6905/repos | jq -r '.[].name')
+    if [ -z "$repos" ]; then
+        echo -e "\033[31mFailed to retrieve repositories.\033[0m"
+    else
+        for repo in $repos; do
+            echo -e "• $repo"
+        done
+    fi
+}
+
+# Main menu
+while true; do
     echo -e "\033[34mHome\033[0m"       # Blue
     echo -e "\033[33mAbout\033[0m"      # Yellow
     echo -e "\033[32mProjects\033[0m"   # Green
     echo -e "\033[36mSkills\033[0m"     # Cyan
     echo -e "\033[35mContact\033[0m"    # Magenta
     echo -e "\033[33mExit\033[0m"       # Yellow
-while true; do
-    # Display the menu with specified colors for each item
-   
 
     read -p "Enter Your Choice: " choice
 
     case "$choice" in
         home)
-        echo -e "\033[36m"  # Cyan color for the ASCII art
+            echo -e "\033[36m"  # Cyan color for the ASCII art
 
-echo "     _       _   _     _     _     "
-echo "    | | ___ | |_| |__ (_)___| |__  "
-echo " _  | |/ _ \| __| '_ \| / __| '_ \ "
-echo "| |_| | (_) | |_| | | | \__ \ | | |"
-echo " \___/ \___/ \__|_| |_|_|___/_| |_|"
+            echo "     _       _   _     _     _     "
+            echo "    | | ___ | |_| |__ (_)___| |__  "
+            echo " _  | |/ _ \| __| '_ \| / __| '_ \ "
+            echo "| |_| | (_) | |_| | | | \__ \ | | |"
+            echo " \___/ \___/ \__|_| |_|_|___/_| |_|"
 
-echo -e "\033[0m"  # Reset color back to default
+            echo -e "\033[0m"  # Reset color back to default
             echo -e "\033[36m"          # Cyan for heading
             echo -e "======================="
             echo -e "=       Home           ="
@@ -43,9 +56,8 @@ echo -e "\033[0m"  # Reset color back to default
             echo -e "=      Projects        ="
             echo -e "======================="
             echo -e "\033[33m"          # Yellow for content
-            echo -e "\n• Project 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Integer nec vehicula velit, sed dapibus nisl. Donec non vehicula odio. Nulla facilisi. Fusce a mi orci. Integer eget ultricies urna. Nam viverra laoreet orci ac eleifend. Phasellus sed enim vel elit ultrices varius.\n"
-            echo -e "• Project 2: Pellentesque nec dolor nec erat lacinia cursus. Integer quis urna nec nisl tincidunt condimentum. Donec vel nulla nec augue malesuada venenatis ut vel ligula. Cras vestibulum erat ut est fermentum, ut luctus ex gravida. Nullam non libero quis orci sollicitudin elementum. Vestibulum et vehicula eros, et suscipit est.\n"
-            echo -e "• Project 3: Sed volutpat, urna a tincidunt gravida, odio ligula ultrices justo, eget viverra mauris nisi eget purus. Donec dictum est ut risus malesuada, at efficitur mauris dictum. Nullam accumsan, lorem non faucibus elementum, metus sapien sollicitudin quam, nec feugiat libero arcu ut felis. Mauris suscipit orci ac mi laoreet, et congue metus feugiat.\033[0m"
+            get_projects
+            echo -e "\033[0m"
             ;;
         skills)
             echo -e "\033[36m"          # Cyan for heading
