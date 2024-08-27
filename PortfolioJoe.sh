@@ -53,8 +53,8 @@ while true; do
                 echo -e "\033[31mFailed to retrieve data or user has no repositories.\033[0m"
             else
                 # Parse the response and display repository names, descriptions, and languages
-                echo -e "\033[33mRepositories of '$USERNAME':\033[0m"
-                echo "$RESPONSE" | jq -r '.[] | "\033[36mName:\033[0m \(.name)\n\033[35mDescription:\033[0m \(.description)\n\033[32mLanguage:\033[0m \(.language)\n"'
+                echo -e "Repositories of '$USERNAME':"
+                echo "$RESPONSE" | jq -r '.[] | "\nName: \(.name)\nDescription: \(.description)\nLanguage: \(.language)\n"'
             fi
             ;;
         skills)
