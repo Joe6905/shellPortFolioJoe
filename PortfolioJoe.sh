@@ -54,7 +54,23 @@ while true; do
             else
                 # Parse the response and display repository names, descriptions, and languages
                 echo -e "\033[33mRepositories of '$USERNAME':\033[0m"
-                echo "$RESPONSE" | jq -r '.[] | "\033[36mName:\033[0m \(.name)\n\033[35mDescription:\033[0m \(.description)\n\033[32mLanguage:\033[0m \(.language)\n"'
+                echo "$RESPONSE" | awk '
+                BEGIN {
+                    FS="[:,{}\"]"
+                }
+                /"name"/ {name=$6}
+                /"description"/ {description=$6}
+                /"language"/ {language=$6}
+                /"name"/ {
+                    printf "\033[36mName:\033[0m %s\n", name
+                }
+                /"description"/ {
+                    printf "\033[35mDescription:\033[0m %s\n", description
+                }
+                /"language"/ {
+                    printf "\033[32mLanguage:\033[0m %s\n", language
+                    print ""
+                }'
             fi
             ;;
         skills)
