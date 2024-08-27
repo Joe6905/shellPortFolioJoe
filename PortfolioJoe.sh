@@ -1,40 +1,27 @@
 #!/bin/bash
+echo -e "\033[34mHome\033[0m"       # Blue
+echo -e "\033[33mAbout\033[0m"      # Yellow
+echo -e "\033[32mProjects\033[0m"   # Green
+echo -e "\033[36mSkills\033[0m"     # Cyan
+echo -e "\033[35mContact\033[0m"    # Magenta
+echo -e "\033[33mExit\033[0m"       # Yellow
 
-# Function to scrape GitHub repositories
-get_projects() {
-    echo -e "\033[33mScraping GitHub Repositories...\033[0m"
-    repos=$(curl -s https://api.github.com/users/joe6905/repos | jq -r '.[].name')
-    if [ -z "$repos" ]; then
-        echo -e "\033[31mFailed to retrieve repositories.\033[0m"
-    else
-        for repo in $repos; do
-            echo -e "• $repo"
-        done
-    fi
-}
-
-# Main menu
 while true; do
-    echo -e "\033[34mHome\033[0m"       # Blue
-    echo -e "\033[33mAbout\033[0m"      # Yellow
-    echo -e "\033[32mProjects\033[0m"   # Green
-    echo -e "\033[36mSkills\033[0m"     # Cyan
-    echo -e "\033[35mContact\033[0m"    # Magenta
-    echo -e "\033[33mExit\033[0m"       # Yellow
+    # Display the menu with specified colors for each item
 
     read -p "Enter Your Choice: " choice
 
     case "$choice" in
         home)
-            echo -e "\033[36m"  # Cyan color for the ASCII art
+        echo -e "\033[36m"  # Cyan color for the ASCII art
 
-            echo "     _       _   _     _     _     "
-            echo "    | | ___ | |_| |__ (_)___| |__  "
-            echo " _  | |/ _ \| __| '_ \| / __| '_ \ "
-            echo "| |_| | (_) | |_| | | | \__ \ | | |"
-            echo " \___/ \___/ \__|_| |_|_|___/_| |_|"
+echo "     _       _   _     _     _     "
+echo "    | | ___ | |_| |__ (_)___| |__  "
+echo " _  | |/ _ \| __| '_ \| / __| '_ \ "
+echo "| |_| | (_) | |_| | | | \__ \ | | |"
+echo " \___/ \___/ \__|_| |_|_|___/_| |_|"
 
-            echo -e "\033[0m"  # Reset color back to default
+echo -e "\033[0m"  # Reset color back to default
             echo -e "\033[36m"          # Cyan for heading
             echo -e "======================="
             echo -e "=       Home           ="
@@ -56,8 +43,21 @@ while true; do
             echo -e "=      Projects        ="
             echo -e "======================="
             echo -e "\033[33m"          # Yellow for content
-            get_projects
-            echo -e "\033[0m"
+
+            # GitHub username to scrape
+            USERNAME="Joe6905"
+
+            # Fetch repositories from GitHub API
+            RESPONSE=$(curl -s "https://api.github.com/users/${USERNAME}/repos")
+
+            # Check if the response is not empty
+            if [ -z "$RESPONSE" ]; then
+                echo -e "\033[31mFailed to retrieve data or user has no repositories.\033[0m"
+            else
+                # Parse the response and display repository names, descriptions, and URLs
+                echo -e "\033[33mRepositories of '$USERNAME':\033[0m"
+                echo "$RESPONSE" | jq -r '.[] | "\nName: \(.name)\nDescription: \(.description)\nURL: \(.html_url)"'
+            fi
             ;;
         skills)
             echo -e "\033[36m"          # Cyan for heading
