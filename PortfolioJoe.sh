@@ -13,15 +13,13 @@ while true; do
 
     case "$choice" in
         home)
-        echo -e "\033[36m"  # Cyan color for the ASCII art
-
-echo "     _       _   _     _     _     "
-echo "    | | ___ | |_| |__ (_)___| |__  "
-echo " _  | |/ _ \| __| '_ \| / __| '_ \ "
-echo "| |_| | (_) | |_| | | | \__ \ | | |"
-echo " \___/ \___/ \__|_| |_|_|___/_| |_|"
-
-echo -e "\033[0m"  # Reset color back to default
+            echo -e "\033[36m"  # Cyan color for the ASCII art
+            echo "     _       _   _     _     _     "
+            echo "    | | ___ | |_| |__ (_)___| |__  "
+            echo " _  | |/ _ \| __| '_ \| / __| '_ \ "
+            echo "| |_| | (_) | |_| | | | \__ \ | | |"
+            echo " \___/ \___/ \__|_| |_|_|___/_| |_|"
+            echo -e "\033[0m"  # Reset color back to default
             echo -e "\033[36m"          # Cyan for heading
             echo -e "======================="
             echo -e "=       Home           ="
@@ -54,9 +52,9 @@ echo -e "\033[0m"  # Reset color back to default
             if [ -z "$RESPONSE" ]; then
                 echo -e "\033[31mFailed to retrieve data or user has no repositories.\033[0m"
             else
-                # Parse the response and display repository names, descriptions, and URLs
+                # Parse the response and display repository names, descriptions, and languages
                 echo -e "\033[33mRepositories of '$USERNAME':\033[0m"
-                echo "$RESPONSE" | jq -r '.[] | "\nName: \(.name)\nDescription: \(.description)\nURL: \(.html_url)"'
+                echo "$RESPONSE" | jq -r '.[] | "\033[36mName:\033[0m \(.name)\n\033[35mDescription:\033[0m \(.description)\n\033[32mLanguage:\033[0m \(.language)\n"'
             fi
             ;;
         skills)
